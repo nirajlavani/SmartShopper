@@ -5,12 +5,13 @@ from rest_framework import status
 from django.shortcuts import render
 from rest_framework.response import Response
 from .serializers import ProductDetailsSerializer
-from .product_scraping import AmazonScrapper, WalmartScrapper
+from .product_scraping import AmazonScrapper, WalmartScrapper, CostcoScrapper
 from rest_framework.generics import CreateAPIView
 
 scraping_class = {
     'amazon': AmazonScrapper,
     'walmart': WalmartScrapper,
+    'costco': CostcoScrapper,
 }
 
 
