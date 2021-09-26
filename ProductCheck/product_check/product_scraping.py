@@ -3,6 +3,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 
 
+
 class AmazonScrapper:
     def __init__(self, url):
         self.product_url = url
@@ -85,6 +86,41 @@ class WalmartScrapper:
         self.parse_page_content(soup)
         return json.dumps(self.__dict__)
 
+class TargetScrapper:
+    def __init__(self, url):
+        self.product_url = url
+        self.product_name = None
+        self.product_price = None
+        self.product_review_score = None
+        self.product_availability = None
+
+    def parse_page_content(self, soup):
+        try:
+            self.product_name = soup.find('span', {"itemprop": "name"}).get_text().strip()
+        except Exception as e:
+            self.product_name = 'BAD REQUEST'
+        try:
+            self.product_price = soup.find('div', {"data-test" : "product-price"})
+            self.product_price = float(self.product_price.get_text().replace('$', '').replace(',', '').strip())
+        except Exception as e:
+            self.product_price = 'BAD REQUEST'
+        try:
+            self.product_review_score = soup.find('h2', {"data-test" : "ratingCountText"}).get_text() + ' out of 5 stars'
+        except Exception as e:
+            self.product_review_score = 'BAD REQUEST'
+
+    def fetch_product_details(self):
+        options = webdriver.ChromeOptions()
+        options.add_argument('--incognito')
+        options.add_argument('--headless')
+        options.add_argument('--disable-extensions')
+        options.add_argument('disable-infobars')
+
+        driver = webdriver.Chrome(chrome_options=options)
+        driver.get(self.product_url)
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        self.parse_page_content(soup)
+        return json.dumps(self.__dict__)
 
 class CostcoScrapper:
     def __init__(self, url):
