@@ -13,3 +13,8 @@ class ProductTestCase(TestCase):
         walmart_product = Product.objects.get(product_url="https://www.walmart.com/")
         self.assertEqual(amazon_product.product_category, "amazon")
         self.assertEqual(walmart_product.product_category, "walmart")
+
+    def test_product_details_post(self):
+        test_file = open('product_check/test_data/test_data.csv', 'r')
+        response = self.client.post('/product_check/details/', {'file': test_file})
+        self.assertEqual(response.status_code, 200)
