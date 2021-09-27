@@ -6,40 +6,40 @@ class FilterLogic:
   def __init__(self):
       self.results = {}
 
-  def searchQueryAmazon(self):
+  def searchQueryAmazon(self,key):
     params = {
     "engine": "google",
-    "q": "mattress amazon.com",
+    "q": key+"amazon.com",
     "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
     self.results = search.get_dict()
     return self.results
 
-  def searchQueryWalmart(self):
+  def searchQueryWalmart(self,key):
     params = {
     "engine": "walmart",
-    "query": "mattress",
+    "query": key,
     "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
     self.results = search.get_dict()
     return self.results
 
-  def searchQueryGoogleCostco(self):
+  def searchQueryGoogleCostco(self,key):
     params = {
     "engine": "Google",
-    "q": "mattress Costco.com",
+    "q": key+"Costco.com",
     "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
     self.results = search.get_dict()
     return self.results
 
-  def searchQueryGoogleTarget(self):
+  def searchQueryGoogleTarget(self,key):
     params = {
     "engine": "Google",
-    "q": "mattress Target.com",
+    "q": key+"Target.com",
     "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
@@ -83,7 +83,8 @@ class FilterLogic:
       links.append([results['organic_results'][i]['product_page_url']])
     return links
     
-    
+
+    #filter logic
     # sorted_list = {}
     # sorted_list = sorted(link.items(), key=lambda x: x[1])    
     # res1 = {}
