@@ -1,5 +1,8 @@
+import csv
 from django.test import TestCase
 from .models import Product
+from .product_scraping import AmazonScrapper, WalmartScrapper, TargetScrapper, CostcoScrapper
+from .views import scraping_class
 
 
 class ProductTestCase(TestCase):
@@ -18,3 +21,17 @@ class ProductTestCase(TestCase):
         test_file = open('product_check/test_data/test_data.csv', 'r')
         response = self.client.post('/product_check/details/', {'file': test_file})
         self.assertEqual(response.status_code, 200)
+
+    def test_amazon_scrapper(self):
+        test_file = csv.DictReader(open('product_check/test_data/amazon_test_data.csv', 'r'))
+        for row in test_file:
+            scrapper = scraping_class[row['product_category']](row['product_url'])
+            data = scrapper.fetch_product_details()
+            self.assertEqual(data.get('product_url'), row['product_url'])
+
+    def test_walmart_scrapper(self):
+        test_file = csv.DictReader(open('product_check/test_data/walmart_test_data.csv', 'r'))
+        for row in test_file:
+            scrapper = scraping_class[row['product_category']](row['product_url'])
+            data = scrapper.fetch_product_details()
+            self.assertEqual(data.get('product_url'), row['product_url'])
