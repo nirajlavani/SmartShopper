@@ -2,9 +2,13 @@ import json
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
+from django.conf import settings
 
 
 class AmazonScrapper:
+    """
+    Responsible for scrapping amazon data.
+    """
     def __init__(self, url):
         self.product_url = url
         self.product_name = None
@@ -37,20 +41,26 @@ class AmazonScrapper:
             self.product_availability = 'Available'
 
     def fetch_product_details(self):
+        """
+        Initializes webdriver and configures several options specific to walmart scrapping.
+        """
         options = webdriver.ChromeOptions()
         options.add_argument('--incognito')
         options.add_argument('--headless')
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(chrome_options=options)
+        driver = webdriver.Chrome(executable_path=settings.CHROME_DRIVER_EXECUTABLE, chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
-        return json.dumps(self.__dict__)
+        return self.__dict__
 
 
 class WalmartScrapper:
+    """
+    Responsible for scrapping walmart data.
+    """
     def __init__(self, url):
         self.product_url = url
         self.product_name = None
@@ -74,19 +84,26 @@ class WalmartScrapper:
             self.product_review_score = 'BAD REQUEST'
 
     def fetch_product_details(self):
+        """
+        Initializes webdriver and configures several options specific to walmart scrapping.
+        """
         options = webdriver.ChromeOptions()
         options.add_argument('--incognito')
         options.add_argument('--headless')
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(chrome_options=options)
+        driver = webdriver.Chrome(executable_path=settings.CHROME_DRIVER_EXECUTABLE, chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
-        return json.dumps(self.__dict__)
+        return self.__dict__
+
 
 class TargetScrapper:
+    """
+    Responsible for scrapping Target data.
+    """
     def __init__(self, url):
         self.product_url = url
         self.product_name = None
@@ -110,6 +127,9 @@ class TargetScrapper:
             self.product_review_score = 'BAD REQUEST'
 
     def fetch_product_details(self):
+        """
+        Initializes webdriver and configures several options specific to Target scrapping.
+        """
         options = webdriver.ChromeOptions()
         options.add_argument('--incognito')
         options.add_argument('--headless')
@@ -120,9 +140,13 @@ class TargetScrapper:
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
-        return json.dumps(self.__dict__)
+        return self.__dict__
+
 
 class CostcoScrapper:
+    """
+    Responsible for scrapping Costco data.
+    """
     def __init__(self, url):
         self.product_url = url
         self.product_name = None
@@ -145,6 +169,9 @@ class CostcoScrapper:
             self.product_review_score = 'BAD REQUEST'
 
     def fetch_product_details(self):
+        """
+        Initializes webdriver and configures several options specific to Costco scrapping.
+        """
         options = webdriver.ChromeOptions()
         options.add_argument('--incognito')
         options.add_argument('--headless')
@@ -155,6 +182,5 @@ class CostcoScrapper:
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
-        return json.dumps(self.__dict__)
-
+        return self.__dict__
 

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,12 +25,12 @@ SECRET_KEY = 'django-insecure-@hgz5ehe(%w7i+lvk_!rz!4+eae=(nxqqt*(-f781^_nc^%qgo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'ProductCheck.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'ProductCheck', 'templates', 'product_check')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ProductCheck.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -124,3 +125,13 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FROM = 'no-reply@productcheck.com'
+DEFAULT_TO = 'chandur626@gmail.com'
+
+CHROME_DRIVER_EXECUTABLE = '/Users/chandrahasreddymandapati/Downloads/chromedriver'
+
+CRONTAB_COMMAND_SUFFIX = '2>&1'
+CRONJOBS = [
+    ('*/5 * * * *', 'product_check.cron.periodic_product_scraping', '>> ' + os.path.join(BASE_DIR, 'ProductCheck/tmp/scheduled_job.log')),
+    ('*/1 * * * *', 'product_check.cron.test_cron', '>> ' + os.path.join(BASE_DIR, 'ProductCheck/tmp/scheduled_job.log'))
+]
