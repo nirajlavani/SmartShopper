@@ -131,3 +131,12 @@ dmypy.json
 # macOS environment specific
 .DS_Store
 ProductCheck/.DS_Store
+
+.idea/.gitignore
+.idea/.name
+.idea/SE21-Group22.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
