@@ -98,11 +98,6 @@ class GoogleScraping:
     return links
     
 
-r = GoogleScraping()
-res = r.searchQueryCostco("shoe","costco") 
-print(res)   
-r.GoogleCotsco(res)
-
 
 
 
