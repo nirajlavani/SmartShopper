@@ -1,6 +1,7 @@
 import json
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from webdriver_manager.chrome import ChromeDriverManager
 
 from django.conf import settings
 
@@ -50,7 +51,7 @@ class AmazonScrapper:
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(executable_path=settings.CHROME_DRIVER_EXECUTABLE, chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
@@ -93,7 +94,7 @@ class WalmartScrapper:
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(executable_path=settings.CHROME_DRIVER_EXECUTABLE, chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
@@ -136,7 +137,7 @@ class TargetScrapper:
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
@@ -152,19 +153,19 @@ class CostcoScrapper:
         self.product_name = None
         self.product_price = None
         self.product_review_score = None
-        self.product_availability = None
+        self.product_availability = 'Available'
 
     def parse_page_content(self, soup):
         try:
-            self.product_name = soup.find('span', {"itemprop": "name"}).get_text().strip()
+            self.product_name = soup.find('meta', property="og:description").get('content')
         except Exception as e:
             self.product_name = 'BAD REQUEST'
         try:
-            self.product_price = float(soup.find('span', {"automation-id": "productPriceOutput"}).strip())
+            self.product_price = soup.find('span', class_="op-value").get_text()
         except Exception as e:
             self.product_price = 'BAD REQUEST'
         try:
-            self.product_review_score = soup.find('span', {"itemprop" : "ratingValue"}).get_text().strip()
+            self.product_review_score = soup.find('span', {"itemprop": "ratingValue"}).get_text()
         except Exception as e:
             self.product_review_score = 'BAD REQUEST'
 
@@ -174,11 +175,11 @@ class CostcoScrapper:
         """
         options = webdriver.ChromeOptions()
         options.add_argument('--incognito')
-        options.add_argument('--headless')
+        options.add_argument("--headless")
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)

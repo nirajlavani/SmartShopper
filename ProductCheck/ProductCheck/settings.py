@@ -126,9 +126,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FROM = 'no-reply@productcheck.com'
-DEFAULT_TO = 'chandur626@gmail.com'
-
-CHROME_DRIVER_EXECUTABLE = '/Users/chandrahasreddymandapati/Downloads/chromedriver'
+DEFAULT_TO = 'test_user@productcheck.com'
 
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 CRONJOBS = [

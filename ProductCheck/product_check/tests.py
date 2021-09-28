@@ -3,6 +3,7 @@ from django.test import TestCase
 from .models import Product
 from .product_scraping import AmazonScrapper, WalmartScrapper, TargetScrapper, CostcoScrapper
 from .views import scraping_class
+from .utilities import mail_user
 
 
 class ProductTestCase(TestCase):
@@ -35,3 +36,24 @@ class ProductTestCase(TestCase):
             scrapper = scraping_class[row['product_category']](row['product_url'])
             data = scrapper.fetch_product_details()
             self.assertEqual(data.get('product_url'), row['product_url'])
+
+    def test_target_scrapper(self):
+        test_file = csv.DictReader(open('product_check/test_data/target_test_data.csv', 'r'))
+        for row in test_file:
+            scrapper = scraping_class[row['product_category']](row['product_url'])
+            data = scrapper.fetch_product_details()
+            self.assertEqual(data.get('product_url'), row['product_url'])
+
+    def test_costco_scrapper(self):
+        test_file = csv.DictReader(open('product_check/test_data/costco_test_data.csv', 'r'))
+        for row in test_file:
+            scrapper = scraping_class[row['product_category']](row['product_url'])
+            data = scrapper.fetch_product_details()
+            self.assertEqual(data.get('product_url'), row['product_url'])
+
+    def test_mail_user(self):
+        test_file = csv.DictReader(open('product_check/test_data/test_data.csv', 'r'))
+        for row in test_file:
+            mail_user(row)
+            self.assertEqual(row.get('product_url'), row['product_url'])
+
