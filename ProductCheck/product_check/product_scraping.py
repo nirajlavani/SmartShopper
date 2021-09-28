@@ -1,6 +1,7 @@
 import json
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from webdriver_manager.chrome import ChromeDriverManager
 
 from django.conf import settings
 
@@ -50,7 +51,7 @@ class AmazonScrapper:
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(executable_path=settings.CHROME_DRIVER_EXECUTABLE, chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
@@ -93,7 +94,7 @@ class WalmartScrapper:
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(executable_path=settings.CHROME_DRIVER_EXECUTABLE, chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
@@ -136,7 +137,7 @@ class TargetScrapper:
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)
@@ -178,7 +179,7 @@ class CostcoScrapper:
         options.add_argument('--disable-extensions')
         options.add_argument('disable-infobars')
 
-        driver = webdriver.Chrome(chrome_options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         driver.get(self.product_url)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         self.parse_page_content(soup)

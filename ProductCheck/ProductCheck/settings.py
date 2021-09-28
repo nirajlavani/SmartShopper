@@ -128,8 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FROM = 'no-reply@productcheck.com'
 DEFAULT_TO = 'chandur626@gmail.com'
 
-CHROME_DRIVER_EXECUTABLE = '/Users/chandrahasreddymandapati/Downloads/chromedriver'
-
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 CRONJOBS = [
     ('*/5 * * * *', 'product_check.cron.periodic_product_scraping', '>> ' + os.path.join(BASE_DIR, 'ProductCheck/tmp/scheduled_job.log')),
