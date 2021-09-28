@@ -2,6 +2,7 @@
 [![Build Status](https://app.travis-ci.com/chandur626/SmartShopper.svg?branch=main)](https://app.travis-ci.com/chandur626/SmartShopper)
 [![Build Status - GitHub](https://github.com/chandur626/SmartShopper/actions/workflows/django.yml/badge.svg)](https://github.com/chandur626/SmartShopper/actions/workflows/django.yml)
 ![Github](https://img.shields.io/badge/language-python-blue.svg)
+[![Coverage Status](https://coveralls.io/repos/github/chandur626/SmartShopper/badge.svg?branch=main)](https://coveralls.io/github/chandur626/SmartShopper?branch=main)
 
 # SmartShopper
 
