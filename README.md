@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://app.travis-ci.com/chandur626/SmartShopper.svg?branch=main)](https://app.travis-ci.com/chandur626/SmartShopper)
 [![Build Status - GitHub](https://github.com/chandur626/SmartShopper/actions/workflows/django.yml/badge.svg)](https://github.com/chandur626/SmartShopper/actions/workflows/django.yml)
 ![Github](https://img.shields.io/badge/language-python-blue.svg)
 
