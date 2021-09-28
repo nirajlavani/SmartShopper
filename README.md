@@ -23,7 +23,6 @@ A User looking for a product makes a search via a search bar on the user interfa
 <br/> Clone the repository and go to the directory
 ```
 git clone https://github.com/chandur626/SmartShopper.git
-cd ProductCheck
 ```
 <br/> Install the required packages
 ```
@@ -31,6 +30,7 @@ pip install -r requirements.txt
 ```
 <br/> Start the server my following command
 ```
+cd ProductCheck
 python manage.py runserver
 ```
 <br/> You could see the server running at http://127.0.0.1:8000/
