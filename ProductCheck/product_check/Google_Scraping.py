@@ -7,10 +7,10 @@ from bs4 import element
 from requests import NullHandler
 from serpapi import GoogleSearch
 
-class FilterLogic:
+class GoogleScraping:
   def __init__(self):
       self.results = {}
-      self.Amazon = "Amazon.com"
+      self.Amazon = "Amazon"
       self.Target = "Target"
       self.Costco = "Costco"
       self.Walmart = "walmart"
@@ -28,7 +28,19 @@ class FilterLogic:
     self.results = search.get_dict()
     return self.results
 
-    
+  def searchQueryCostco(self,key,store):
+      params = {
+        "hl": "en",
+        "gl": "us",
+        "engine": "google",
+        "q": key+" "+store,
+        "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
+    }
+      search = GoogleSearch(params)
+      self.results = search.get_dict()
+      return self.results
+
+
   def GoogleAmazon(self,results):
     #Amazon scraping
     links = []
@@ -40,6 +52,7 @@ class FilterLogic:
           links.append(results['shopping_results'][i]['link'])
       except:
         pass
+      return links
 
 
  
@@ -84,6 +97,11 @@ class FilterLogic:
         pass
     return links
     
+
+r = GoogleScraping()
+res = r.searchQueryCostco("shoe","costco") 
+print(res)   
+r.GoogleCotsco(res)
 
 
 
