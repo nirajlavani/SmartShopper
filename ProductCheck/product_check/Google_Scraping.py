@@ -15,39 +15,13 @@ class FilterLogic:
       self.Costco = "Costco"
       self.Walmart = "walmart"
 
-  def searchQueryAmazon(self,key):
+  def searchQueryAmazon(self,key,store):
     params = {
       "tbm": "shop",
       "hl": "en",
       "gl": "us",
       "engine": "google",
-      "q": key+" "+"Amazon.com",
-      "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
-  }
-    search = GoogleSearch(params)
-    self.results = search.get_dict()
-    return self.results
-
-  def searchQueryWalmart(self,key):
-    params = {
-    "tbm": "shop",
-    "hl": "en",
-    "gl": "us",
-    "engine": "google",
-    "q": key+" "+"walmart.com",
-    "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
-}
-    search = GoogleSearch(params)
-    self.results = search.get_dict()
-    return self.results
-
-  def searchQueryGoogleCostco(self,key):
-    params = {
-      "tbm": "shop",
-      "hl": "en",
-      "gl": "us",
-      "engine": "google",
-      "q": key+" "+"Costco.com",
+      "q": key+" "+store,
       "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
