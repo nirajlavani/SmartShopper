@@ -1,3 +1,8 @@
+""" 
+Scraping multiple ecommerce sites to obtain poduct links using serpAPI
+
+"""
+
 from bs4 import element
 from requests import NullHandler
 from serpapi import GoogleSearch
@@ -5,12 +10,19 @@ from serpapi import GoogleSearch
 class FilterLogic:
   def __init__(self):
       self.results = {}
+      self.Amazon = "Amazon.com"
+      self.Target = "Target"
+      self.Costco = "Costco"
+      self.Walmart = "walmart"
 
   def searchQueryAmazon(self,key):
     params = {
-    "engine": "google",
-    "q": key+"amazon.com",
-    "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
+      "tbm": "shop",
+      "hl": "en",
+      "gl": "us",
+      "engine": "google",
+      "q": key+" "+"Amazon.com",
+      "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
     self.results = search.get_dict()
@@ -18,19 +30,25 @@ class FilterLogic:
 
   def searchQueryWalmart(self,key):
     params = {
-    "engine": "walmart",
-    "query": key,
+    "tbm": "shop",
+    "hl": "en",
+    "gl": "us",
+    "engine": "google",
+    "q": key+" "+"walmart.com",
     "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
-  }
+}
     search = GoogleSearch(params)
     self.results = search.get_dict()
     return self.results
 
   def searchQueryGoogleCostco(self,key):
     params = {
-    "engine": "Google",
-    "q": key+"Costco.com",
-    "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
+      "tbm": "shop",
+      "hl": "en",
+      "gl": "us",
+      "engine": "google",
+      "q": key+" "+"Costco.com",
+      "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
     self.results = search.get_dict()
@@ -38,70 +56,74 @@ class FilterLogic:
 
   def searchQueryGoogleTarget(self,key):
     params = {
-    "engine": "Google",
-    "q": key+"Target.com",
-    "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
+      "tbm": "shop",
+      "hl": "en",
+      "gl": "us",
+      "engine": "google",
+      "q": key+" "+"Target.com",
+      "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
   }
     search = GoogleSearch(params)
     self.results = search.get_dict()
     return self.results
   
   def GoogleAmazon(self,results):
-    links = []
-    for i in range(0,len(results)):
-      if "Amazon.com" in results['shopping_results'][i]['source']:
-        links.append(results['shopping_results'][i]['link'])
-
-    print(links)
-
-  def GoogleTarget(self,results):
-    #uses shopping lists
-    links = []
-    for i in range(0,len(results)):
-      if results['shopping_results'][i]['source'] == "Target":
-        links.append(results['shopping_results'][i]['link'])
-
-    return links
-  
-  def GoogleCotsco(self,results):
-    #uses organic results
+    #Amazon scraping
     links = []
     for i in range(0,len(results)):
       try:
-        if "www.costco.com" in results['organic_results'][i]['link'] and results['organic_results'][i]['sitelinks']:
-          for k in  results['organic_results'][i]['sitelinks']['expanded']:
-            links.append(k['link'])
+        if self.Amazon in results['shopping_results'][i]['source']:
+          links.append(results['shopping_results'][i]['link'])
+        if self.Amazon in results['inline_shopping_results'][i]['source']:
+          links.append(results['shopping_results'][i]['link'])
       except:
-        print('error')
+        pass
+
+
+ 
+  def GoogleTarget(self,results):
+    #Target scraping
+    links = []
+    for i in range(0,len(results)):
+      try:
+        if results['shopping_results'][i]['source'] == self.Target:
+          links.append(results['shopping_results'][i]['link'])
+        if results['inline_shopping_results'][i]['source'] == self.Target:
+          links.append(results['shopping_results'][i]['link'])
+      except:
+        pass
+    return links
+  
+  
+  def GoogleCotsco(self,results):
+    #Cosco scraping
+    links = []
+    for i in range(0,len(results)):
+      try:
+        if self.Costco in results['shopping_results'][i]['source']:
+          links.append(results['shopping_results'][i]['link'])
+        if self.Costco in results['inline_shopping_results'][i]['source']:
+          links.append(results['shopping_results'][i]['link'])
+      except:
+        pass
     return links
       
 
-  #walmart results 
-  def filterByRatings(self, results):
+  def GoogleWalmart(self, results):
+    #walmart results 
     links = []
     for i in range(0,len(results)):
-      links.append([results['organic_results'][i]['product_page_url']])
+      try:
+          if self.Walmart in results['shopping_results'][i]['source']:
+            links.append(results['shopping_results'][i]['link'])
+          if self.Walmart in results['inline_shopping_results'][i]['source']:
+            links.append(results['shopping_results'][i]['link'])
+      except:
+        pass
     return links
     
 
-    #filter logic
-    # sorted_list = {}
-    # sorted_list = sorted(link.items(), key=lambda x: x[1])    
-    # res1 = {}
-    # for i in range(0,len(sorted_list)):
-    #   for j in range(0,len(results)):
-    #     if results['organic_results'][j]['product_page_url'] == sorted_list[i][0]:
-    #       x = {}
-    #       x['rating'] = results['organic_results'][j]['rating']
-    #       y = {}
-    #       y['price'] = results['organic_results'][j]['price_per_unit']['amount']
-    #       l = []
-    #       l.append(x)
-    #       l.append(y)
-    #   res1[sorted_list[i][0]] = l
 
-    #   print(res1)
-    
 
 
 
