@@ -1,7 +1,9 @@
 # SmartShopper
 
 
-https://user-images.githubusercontent.com/60410421/135013121-060adc25-8f0f-499a-a1f6-44b56c742aaf.mp4
+https://user-images.githubusercontent.com/60410421/135014006-921089ab-d598-4672-85d1-bd461d1863a5.mp4
+
+
 
 
 ### Introduction to SmartShopper
