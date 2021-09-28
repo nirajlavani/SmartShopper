@@ -13,7 +13,7 @@ class GoogleScraping:
       self.Amazon = "Amazon"
       self.Target = "Target"
       self.Costco = "Costco"
-      self.Walmart = "walmart"
+      self.Walmart = "Walmart"
 
   def searchQuery(self,key,store):
     params = {
@@ -48,8 +48,12 @@ class GoogleScraping:
       try:
         if self.Amazon in results['shopping_results'][i]['source']:
           links.append(results['shopping_results'][i]['link'])
-        if self.Amazon in results['inline_shopping_results'][i]['source']:
-          links.append(results['shopping_results'][i]['link'])
+      except:
+        pass
+    for i in range(0,len(results)):
+      try:
+        if results['inline_shopping_results'][i]['source'] == self.Target:
+          links.append(results['inline_shopping_results'][i]['link'])
       except:
         pass
       return links
@@ -63,10 +67,15 @@ class GoogleScraping:
       try:
         if results['shopping_results'][i]['source'] == self.Target:
           links.append(results['shopping_results'][i]['link'])
-        if results['inline_shopping_results'][i]['source'] == self.Target:
-          links.append(results['shopping_results'][i]['link'])
       except:
         pass
+    for i in range(0,len(results)):
+      try:
+        if results['inline_shopping_results'][i]['source'] == self.Target:
+          links.append(results['inline_shopping_results'][i]['link'])
+      except:
+        pass
+
     return links
   
   
@@ -77,8 +86,12 @@ class GoogleScraping:
       try:
         if self.Costco in results['shopping_results'][i]['source']:
           links.append(results['shopping_results'][i]['link'])
+      except:
+        pass
+    for i in range(0,len(results)):
+      try:
         if self.Costco in results['inline_shopping_results'][i]['source']:
-          links.append(results['shopping_results'][i]['link'])
+          links.append(results['inline_shopping_results'][i]['link'])
       except:
         pass
     return links
@@ -91,12 +104,17 @@ class GoogleScraping:
       try:
           if self.Walmart in results['shopping_results'][i]['source']:
             links.append(results['shopping_results'][i]['link'])
+      except:
+        pass
+    for i in range(0,len(results)):
+      try:
           if self.Walmart in results['inline_shopping_results'][i]['source']:
-            links.append(results['shopping_results'][i]['link'])
+            links.append(results['inline_shopping_results'][i]['link'])
       except:
         pass
     return links
-    
+
+
 
 
 
