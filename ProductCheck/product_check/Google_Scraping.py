@@ -15,7 +15,7 @@ class FilterLogic:
       self.Costco = "Costco"
       self.Walmart = "walmart"
 
-  def searchQueryAmazon(self,key,store):
+  def searchQuery(self,key,store):
     params = {
       "tbm": "shop",
       "hl": "en",
@@ -28,19 +28,7 @@ class FilterLogic:
     self.results = search.get_dict()
     return self.results
 
-  def searchQueryGoogleTarget(self,key):
-    params = {
-      "tbm": "shop",
-      "hl": "en",
-      "gl": "us",
-      "engine": "google",
-      "q": key+" "+"Target.com",
-      "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
-  }
-    search = GoogleSearch(params)
-    self.results = search.get_dict()
-    return self.results
-  
+    
   def GoogleAmazon(self,results):
     #Amazon scraping
     links = []
