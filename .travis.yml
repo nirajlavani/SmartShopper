@@ -9,7 +9,7 @@ install:
 before_script:
   - cd ./ProductCheck
 script:
-  -  coverage run --source=./product_check manage.py test
+  -  coverage run --source=./product_check manage.py test && coverage report
 after_success:
   - coveralls
 notifications:
