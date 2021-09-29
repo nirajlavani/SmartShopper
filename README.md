@@ -22,7 +22,7 @@ A User looking for a product makes a search via a search bar on the user interfa
 
 ### QuickStart
 ---
-<br/> Clone the repository and go to the directory
+<br/> Clone the repository
 ```
 git clone https://github.com/chandur626/SmartShopper.git
 ```
@@ -30,7 +30,7 @@ git clone https://github.com/chandur626/SmartShopper.git
 ```
 pip install -r requirements.txt
 ```
-<br/> Start the server my following command
+<br/> Start the server by running the following commands
 ```
 cd ProductCheck
 python manage.py runserver
