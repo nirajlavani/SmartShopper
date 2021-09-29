@@ -10,7 +10,7 @@ We pledge to act and interact in ways that contribute to an open, welcoming, div
 1. Respect other people's viewpoints and opinions.
 2. Give and receive constructive feedback.
 3. Being kind and not dicriminating against people. 
-4. Taking responsibilty and apologizing for your mistakes.
+4. Taking responsibility and apologizing for your mistakes.
 5. Trolling, insulting or personal attacks are not acceptable. 
 6. Harassment is not acceptable.
 
