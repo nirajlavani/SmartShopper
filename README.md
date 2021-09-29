@@ -6,7 +6,11 @@
 
 # SmartShopper
 
-https://user-images.githubusercontent.com/60410421/135014006-921089ab-d598-4672-85d1-bd461d1863a5.mp4
+
+
+https://user-images.githubusercontent.com/60410421/135190308-20dc565c-933d-4bc0-9aae-f3f75538f9a3.mp4
+
+
 
 ### Introduction to SmartShopper
 Have you ever bought a product only to find out your friend bought the same product at a cheaper price? 
