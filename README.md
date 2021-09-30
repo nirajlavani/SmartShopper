@@ -25,28 +25,32 @@ Our developments in SmartShopper were achieved using the following technologies:
 A User looking for a product makes a search via a search bar on the user interface. SmartShopper extracts certain keywords from the search. Using an existing .csv file with links to bigbox retailers like Target and Walmart, the program establishes a connection to these retailer links. The program then webscrapes from the links to find the product's general information (name, description, and price) matching that of the keywords extracted from the user search. Products are then outputted to the user interface for the user to view which retailers provide the cheapest price.
 
 ### QuickStart
----
-<br/> Clone the repository
+
+<br/> Clone the repository.
 ```
 git clone https://github.com/chandur626/SmartShopper.git
 ```
-<br/> Install the required packages
+<br/> Create a virtual environment by referring to the following link.
+```
+https://www.geeksforgeeks.org/creating-python-virtual-environment-windows-linux/
+```
+<br/> Install the required packages.
 ```
 pip install -r requirements.txt
 ```
-<br/> Start the server by running the following commands
+<br/> Start the server by running the following commands.
 ```
 cd ProductCheck
 python manage.py runserver
 ```
-<br/> You could see the server running at http://127.0.0.1:8000/
+<br/> You could see the server running at http://127.0.0.1:8000/ .
 
-<br/> To check everything is working correct run the tests by using the following command.
+<br/> To ensure everything is working expected, execute the tests by using the following command.
 ```
 python manage.py test
 ```
 
-<br/> Start the cron job by running the following command.
+<br/> Start the cron job by using the following command.
 ```
 python manage.py crontab add
 ```
@@ -75,7 +79,7 @@ crontab -l
 
 * Maybe the best price isn't at a bigbox retailer. Create a wider search across a diverse list of stores to find the cheapest price.
 
-* Checkout project board for other enhancements.
+* Checkout project board https://github.com/chandur626/SmartShopper/projects/1 for other enhancements.
 
 ### Team Members
 [Chandrahas Reddy Mandapati](https://github.com/chandur626)
