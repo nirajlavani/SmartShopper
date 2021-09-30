@@ -4,6 +4,7 @@ from .models import Product
 from .product_scraping import AmazonScrapper, WalmartScrapper, TargetScrapper, CostcoScrapper
 from .views import scraping_class
 from .utilities import mail_user
+from .Google_Scraping import GoogleScraping,GoogleSearch
 
 
 class ProductTestCase(TestCase):
@@ -57,3 +58,38 @@ class ProductTestCase(TestCase):
             mail_user(row)
             self.assertEqual(row.get('product_url'), row['product_url'])
 
+    def test_target_google_search_scrapper(self):
+        instance = GoogleScraping()
+        result1 = instance.searchQuery("Coffee","Target.com")
+        result2 = instance.searchQueryShop("Coffee","Target.com")
+        instance.GoogleSearch(result1,"Target.com")
+        instance.GoogleSearchShop(result2,"Target.com")
+        # check if returning scraped links
+        self.assertTrue(len(result1) or len(result2))
+    
+    def test_walmart_google_search_scrapper(self):   
+        instance = GoogleScraping()
+        result1 = instance.searchQuery("Coffee","Walmart.com")
+        result2 = instance.searchQueryShop("Coffee","Walmart.com")
+        instance.GoogleSearch(result1,"Walmart.com")
+        instance.GoogleSearchShop(result2,"Walmart.com")
+        # check if returning scraped links
+        self.assertTrue(len(result1) or len(result2))
+    
+    def test_amazon_google_search_scrapper(self):   
+        instance = GoogleScraping()
+        result1 = instance.searchQuery("Coffee","Amazon.com")
+        result2 = instance.searchQueryShop("Coffee","Amazon.com")
+        instance.GoogleSearch(result1,"Amazon.com")
+        instance.GoogleSearchShop(result2,"Amazon.com")
+        # check if returning scraped links
+        self.assertTrue(len(result1) or len(result2))
+    
+    def test_costco_google_search_scrapper(self):   
+        instance = GoogleScraping()
+        result1 = instance.searchQuery("Coffee","Costco.com")
+        result2 = instance.searchQueryShop("Coffee","Costco.com")
+        instance.GoogleSearch(result1,"Costco.com")
+        instance.GoogleSearchShop(result2,"Costco.com")
+        # check if returning scraped links
+        self.assertTrue(len(result1) or len(result2))
