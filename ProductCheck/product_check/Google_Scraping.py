@@ -14,107 +14,87 @@ class GoogleScraping:
       self.Target = "Target"
       self.Costco = "Costco"
       self.Walmart = "Walmart"
+      self.apiKey = "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
 
-  def searchQuery(self,key,store):
+  def searchQueryShop(self,key,store):
     params = {
       "tbm": "shop",
       "hl": "en",
       "gl": "us",
       "engine": "google",
       "q": key+" "+store,
-      "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
+      "api_key": self.apiKey
   }
     search = GoogleSearch(params)
     self.results = search.get_dict()
     return self.results
 
-  def searchQueryCostco(self,key,store):
+  def searchQuery(self,key,store):
       params = {
         "hl": "en",
         "gl": "us",
         "engine": "google",
         "q": key+" "+store,
-        "api_key": "4ac8179c2b83da5e87019484de602805a72a7d1581b8f004efe4d9939e99e857"
+        "api_key": self.apiKey
     }
       search = GoogleSearch(params)
       self.results = search.get_dict()
       return self.results
-
-
-  def GoogleAmazon(self,results):
-    #Amazon scraping
-    links = []
-    for i in range(0,len(results)):
-      try:
-        if self.Amazon in results['shopping_results'][i]['source']:
-          links.append(results['shopping_results'][i]['link'])
-      except:
-        pass
-    for i in range(0,len(results)):
-      try:
-        if results['inline_shopping_results'][i]['source'] == self.Target:
-          links.append(results['inline_shopping_results'][i]['link'])
-      except:
-        pass
-      return links
-
-
- 
-  def GoogleTarget(self,results):
-    #Target scraping
-    links = []
-    for i in range(0,len(results)):
-      try:
-        if results['shopping_results'][i]['source'] == self.Target:
-          links.append(results['shopping_results'][i]['link'])
-      except:
-        pass
-    for i in range(0,len(results)):
-      try:
-        if results['inline_shopping_results'][i]['source'] == self.Target:
-          links.append(results['inline_shopping_results'][i]['link'])
-      except:
-        pass
-
-    return links
   
-  
-  def GoogleCotsco(self,results):
-    #Cosco scraping
-    links = []
-    for i in range(0,len(results)):
-      try:
-        if self.Costco in results['shopping_results'][i]['source']:
-          links.append(results['shopping_results'][i]['link'])
-      except:
-        pass
-    for i in range(0,len(results)):
-      try:
-        if self.Costco in results['inline_shopping_results'][i]['source']:
-          links.append(results['inline_shopping_results'][i]['link'])
-      except:
-        pass
-    return links
-      
 
-  def GoogleWalmart(self, results):
-    #walmart results 
+  def GoogleSearch(self,results,store):
+    #Scraping costco results from google search
+    #print(results)
     links = []
-    for i in range(0,len(results)):
+    def organicResultsInline():
       try:
-          if self.Walmart in results['shopping_results'][i]['source']:
+        organicResults = []
+        for i in range(0,len(results["organic_results"])):
+          organicResults.append(results["organic_results"][i])
+        inlineOrganicResults = organicResults[0]["sitelinks"]["inline"]
+        for i in range(0,len(inlineOrganicResults)):
+          if store in inlineOrganicResults[i]["link"]:
+            links.append(inlineOrganicResults[i]["link"])
+      except:
+        print("format error in inline organic results")
+    def organicresultsExpanded():
+      try:
+        organicResults = []
+        for i in range(0,len(results["organic_results"])):
+          organicResults.append(results["organic_results"][i])
+        inlineOrganicResults = organicResults[0]["sitelinks"]["expanded"]
+        for i in range(0,len(inlineOrganicResults)):
+          print(inlineOrganicResults[i]["link"])
+          if store in str(inlineOrganicResults[i]["link"]):
+            links.append(inlineOrganicResults[i]["link"])
+      except:
+        print("format error in expanded organic results")
+    organicResultsInline()
+    organicresultsExpanded()
+    return links
+
+  def GoogleSearchShop(self, results,store):
+    links = []
+    def shoppingResults():
+      try:
+        for i in range(0,len(results['shopping_results'])):
+          print(str(store).strip(".com").upper+str(results['shopping_results'][i]['source']).upper)
+          if str(store).strip(".com").upper in str(results['shopping_results'][i]['source']).upper:
             links.append(results['shopping_results'][i]['link'])
       except:
         pass
-    for i in range(0,len(results)):
+    def shoppingResultsInline():
+      #print(results)
       try:
-          if self.Walmart in results['inline_shopping_results'][i]['source']:
+        for i in range(0,len(results['inline_shopping_results'])):
+          if store in results['inline_shopping_results'][i]['source']:
             links.append(results['inline_shopping_results'][i]['link'])
       except:
         pass
+    shoppingResults()
+    shoppingResultsInline()
+
     return links
-
-
 
 
 
